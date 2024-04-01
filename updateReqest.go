@@ -81,14 +81,14 @@ func authenticateUser(db *sql.DB, username, password string) error {
 	var storedPasswordHash []byte
 	err := db.QueryRow("SELECT password_hash FROM Person WHERE username = ?", username).Scan(&storedPasswordHash)
 	if err == sql.ErrNoRows {
-		return fmt.Errorf("User not found")
+		return fmt.Errorf("user not found")
 	} else if err != nil {
-		return fmt.Errorf("Database query error")
+		return fmt.Errorf("database query error")
 	}
 
 	// パスワードの検証
 	if err := bcrypt.CompareHashAndPassword(storedPasswordHash, []byte(password)); err != nil {
-		return fmt.Errorf("Incorrect password")
+		return fmt.Errorf("incorrect password")
 	}
 
 	return nil
