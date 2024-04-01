@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
@@ -31,6 +32,7 @@ func main() {
 	e.GET("/", connect_check)
 
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+	fmt.Println(os.Getenv("PORT"))
 }
 
 // ハンドラーを定義
