@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"math/rand"
 	"net/http"
 	"time"
@@ -17,6 +18,7 @@ func addPerson(c echo.Context) error {
 
 	// パスワードをハッシュ化
 	passwordHash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	fmt.Println(passwordHash)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Error hashing password"})
 	}
@@ -106,9 +108,9 @@ func generateUniqueLocationID(db *sql.DB) (string, error) {
 		id := ""
 		for i := 0; i < 5; i++ {
 			if rand.Intn(2) == 0 {
-				id += string(rand.Intn(10) + 48) // 数字
+				id += fmt.Sprintf("%c", rand.Intn(10)+48)
 			} else {
-				id += string(rand.Intn(26) + 97) // 英小文字
+				id += fmt.Sprintf("%c", rand.Intn(27)+97) // 英小文字
 			}
 		}
 

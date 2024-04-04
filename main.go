@@ -30,6 +30,7 @@ func main() {
 	e.GET("/aa", hello) // ローカル環境の場合、http://localhost:1323/ にGETアクセスされるとhelloハンドラーを実行する
 	e.POST("/getPersonByLocationID", getPersonByLocationID)//id
 	e.GET("/", connect_check)
+	e.POST("/login",login)//username password
 	e.POST("/addPerson",addPerson)// username password
 	e.POST("/addAffiliation",addAffiliation)// username password locationID
 	e.POST("/addLocation",addLocation)//name
@@ -42,7 +43,7 @@ func main() {
 
 
 
-	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+	e.Logger.Fatal(e.Start(":1323"))
 	fmt.Println(os.Getenv("PORT"))
 }
 
